@@ -1,1 +1,7 @@
-// Conteúdo de exemplo para ColecaoNaoEncontradaException.java
+package exceptions;
+
+public class ColecaoNaoEncontradaException extends Exception {
+    public ColecaoNaoEncontradaException(String mensagem) {
+        super(mensagem);
+    }
+}
