@@ -10,16 +10,16 @@ public class Slide implements Entrada {
 
    public Slide(String titulo, String autor, int ano, int numeroDeSlides) {
     if (titulo == null || titulo.isBlank()) {
-        throw new IllegalArgumentException("O título não pode ser vazio.");
+        throw new IllegalArgumentException("erro.titulo.vazio");
     }
     if (autor == null || autor.isBlank()) {
-        throw new IllegalArgumentException("O autor não pode ser vazio.");
+        throw new IllegalArgumentException("erro.autor.vazio");
     }
     if (ano <= 0) {
-        throw new IllegalArgumentException("O ano deve ser positivo.");
+        throw new IllegalArgumentException("erro.ano.invalido");
     }
     if (numeroDeSlides <= 0) {
-        throw new IllegalArgumentException("O número de slides deve ser positivo.");
+        throw new IllegalArgumentException("erro.slides.invalidos");
     }
 
     this.titulo = titulo.trim();
