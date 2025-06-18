@@ -31,4 +31,18 @@ public class Slide implements Entrada {
         return String.format("@misc{%s,\n  author = {%s},\n  title = {%s},\n  year = {%d},\n  howpublished = {Apresentado em: %s}\n}",
             titulo.replaceAll("\\s", ""), autor, titulo, ano, evento);
     }
+
+    @Override
+    public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Slide)) return false;
+    Slide slide = (Slide) o;
+    return titulo.equalsIgnoreCase(slide.titulo) &&
+           autor.equalsIgnoreCase(slide.autor);
+}
+
+    @Override
+    public int hashCode() {
+    return (titulo.toLowerCase() + autor.toLowerCase()).hashCode();
+}
 }
