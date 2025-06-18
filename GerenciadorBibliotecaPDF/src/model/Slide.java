@@ -1,6 +1,8 @@
-package model;
+ppackage model;
 
 public class Slide implements Entrada {
+    private static final long serialVersionUID = 1L;
+
     private String titulo;
     private String autor;
     private int ano;
@@ -13,7 +15,7 @@ public class Slide implements Entrada {
         this.evento = evento;
     }
 
-    @Override
+  @Override
     public String getTitulo() { return titulo; }
 
     @Override
