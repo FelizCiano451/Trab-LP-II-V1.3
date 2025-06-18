@@ -1,64 +1,37 @@
-package biblioteca;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class Colecao<T extends IEntrada> {
+public class Colecao {
     private String nome;
-    private String autor;
-    private Class<T> tipo;
-    private int maxEntradas;
-    private List<T> entradas;
+    private List<Entrada> entradas;
 
-    public Colecao(String nome, String autor, Class<T> tipo, int maxEntradas, List<T> entradasIniciais) {
+    public Colecao(String nome) {
         this.nome = nome;
-        this.autor = autor;
-        this.tipo = tipo;
-        this.maxEntradas = maxEntradas;
         this.entradas = new ArrayList<>();
-        adicionarEntradas(entradasIniciais);
     }
 
     public String getNome() {
         return nome;
     }
 
-    public String getAutor() {
-        return autor;
-    }
-
-    public Class<T> getTipo() {
-        return tipo;
-    }
-
-    public List<T> getEntradas() {
+    public List<Entrada> getEntradas() {
         return entradas;
     }
 
-    public void adicionarEntradas(List<T> novasEntradas) {
-        for (T entrada : novasEntradas) {
-            if (entradas.size() < maxEntradas) {
-                entradas.add(entrada);
-            } else {
-                System.out.println("A coleção '" + nome + "' atingiu o número máximo de entradas.");
-                break;
-            }
-        }
+    public void adicionarEntrada(Entrada entrada) {
+        entradas.add(entrada);
     }
 
-    public void adicionarEntrada(T entrada) {
-        if (entradas.size() < maxEntradas) {
-            entradas.add(entrada);
-        } else {
-            System.out.println("A coleção '" + nome + "' já está cheia.");
-        }
+    public void removerEntrada(Entrada entrada) {
+        entradas.remove(entrada);
     }
 
-    public boolean removerEntrada(T entrada) {
-        boolean removido = entradas.remove(entrada);
-        if (removido && entradas.isEmpty()) {
-            System.out.println("Coleção '" + nome + "' agora está vazia e será removida.");
-        }
-        return removido;
+    public String exportarBibTeX() {
+        return entradas.stream()
+                .map(Entrada::gerarBibTeX)
+                .collect(Collectors.joining("\n\n"));
     }
 }
