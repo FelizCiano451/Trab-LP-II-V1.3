@@ -10,16 +10,16 @@ public class Livro implements Entrada {
 
     public Livro(String titulo, String autor, int ano, String editora) {
     if (titulo == null || titulo.isBlank()) {
-        throw new IllegalArgumentException("O título não pode ser vazio.");
+    throw new IllegalArgumentException(Mensagens.get("erro.titulo.vazio"));
     }
     if (autor == null || autor.isBlank()) {
-        throw new IllegalArgumentException("O autor não pode ser vazio.");
+        throw new IllegalArgumentException("erro.autor.vazio");
     }
     if (ano <= 0) {
-        throw new IllegalArgumentException("O ano deve ser positivo.");
+        throw new IllegalArgumentException("erro.ano.invalido");
     }
     if (editora == null || editora.isBlank()) {
-        throw new IllegalArgumentException("A editora não pode ser vazia.");
+        throw new IllegalArgumentException("erro.disciplina.vazia");
     }
 
     this.titulo = titulo.trim();
