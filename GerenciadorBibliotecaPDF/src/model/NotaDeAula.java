@@ -8,13 +8,26 @@ public class NotaDeAula implements Entrada {
     private int ano;
     private String curso;
 
-    public NotaDeAula(String titulo, String autor, int ano, String curso) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.ano = ano;
-        this.curso = curso;
+    public NotaDeAula(String titulo, String autor, int ano, String disciplina) {
+    if (titulo == null || titulo.isBlank()) {
+        throw new IllegalArgumentException("O título não pode ser vazio.");
+    }
+    if (autor == null || autor.isBlank()) {
+        throw new IllegalArgumentException("O autor não pode ser vazio.");
+    }
+    if (ano <= 0) {
+        throw new IllegalArgumentException("O ano deve ser positivo.");
+    }
+    if (disciplina == null || disciplina.isBlank()) {
+        throw new IllegalArgumentException("A disciplina não pode ser vazia.");
     }
 
+    this.titulo = titulo.trim();
+    this.autor = autor.trim();
+    this.ano = ano;
+    this.disciplina = disciplina.trim();
+}
+    
      @Override
     public String getTitulo() { return titulo; }
 
