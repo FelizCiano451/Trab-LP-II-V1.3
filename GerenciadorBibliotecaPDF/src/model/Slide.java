@@ -1,43 +1,32 @@
 package model;
 
-import java.util.List;
-import java.util.Arrays;
+public class Slide implements Entrada {
+    private String titulo;
+    private String autor;
+    private int ano;
+    private String evento;
 
-public class Slide extends EntradaPDF {
-    private String disciplina;
-    private String instituicao;
-
-    public Slide(String titulo, List<String> autores, String pathPDF,
-                 String disciplina, String instituicao) {
-        super(titulo, autores, pathPDF);
-        this.disciplina = disciplina;
-        this.instituicao = instituicao;
-    }
-
-    public static Slide fromLinha(String linha) {
-        String[] partes = linha.split(";");
-        String titulo = partes[1];
-        List<String> autores = Arrays.asList(partes[2].split(","));
-        String pathPDF = partes[3];
-        String disciplina = partes[4];
-        String instituicao = partes[5];
-        return new Slide(titulo, autores, pathPDF, disciplina, instituicao);
+    public Slide(String titulo, String autor, int ano, String evento) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.ano = ano;
+        this.evento = evento;
     }
 
     @Override
-    public String toLinha() {
-        return String.join(";",
-            "SLIDE",
-            titulo,
-            String.join(",", autores),
-            pathPDF,
-            disciplina,
-            instituicao != null ? instituicao : ""
-        );
-    }
+    public String getTitulo() { return titulo; }
 
     @Override
-    public String getTipo() {
-        return "Slide";
+    public String getAutor() { return autor; }
+
+    @Override
+    public int getAno() { return ano; }
+
+    public String getEvento() { return evento; }
+
+    @Override
+    public String gerarBibTeX() {
+        return String.format("@misc{%s,\n  author = {%s},\n  title = {%s},\n  year = {%d},\n  howpublished = {Apresentado em: %s}\n}",
+            titulo.replaceAll("\\s", ""), autor, titulo, ano, evento);
     }
 }
