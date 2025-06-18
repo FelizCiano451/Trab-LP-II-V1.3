@@ -1,1 +1,7 @@
-// Conteúdo de exemplo para EntradaNaoEncontradaException.java
+package exceptions;
+
+public class EntradaNaoEncontradaException extends Exception {
+    public EntradaNaoEncontradaException(String mensagem) {
+        super(mensagem);
+    }
+}
