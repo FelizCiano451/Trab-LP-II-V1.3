@@ -7,7 +7,7 @@ import exceptions.EntradaNaoEncontradaException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GerenciadorBiblioteca {
+public class GerenciadorBiblioteca implements IGerenciadorBiblioteca {
     private List<Entrada> entradas;
 
     public GerenciadorBiblioteca() {
