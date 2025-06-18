@@ -19,7 +19,7 @@ public class Livro implements Entrada {
         throw new IllegalArgumentException("erro.ano.invalido");
     }
     if (editora == null || editora.isBlank()) {
-        throw new IllegalArgumentException("erro.disciplina.vazia");
+        throw new IllegalArgumentException("erro.editora.vazia");
     }
 
     this.titulo = titulo.trim();
