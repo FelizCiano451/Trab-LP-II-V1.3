@@ -1,3 +1,5 @@
+package view;
+
 import controller.GerenciadorBiblioteca;
 import controller.GerenciadorColecoes;
 import exceptions.ColecaoNaoEncontradaException;
