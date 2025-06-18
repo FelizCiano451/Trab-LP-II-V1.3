@@ -8,38 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciadorBiblioteca implements IGerenciadorBiblioteca {
-    private List<Entrada> entradas;
+    private Set<Entrada> entradas;
 
-    public GerenciadorBiblioteca() {
-        this.entradas = new ArrayList<>();
-    }
+public GerenciadorBiblioteca() {
+    this.entradas = new HashSet<>();
+}
 
     public void adicionarEntrada(Entrada entrada) throws EntradaJaExisteException {
-        for (Entrada e : entradas) {
-            if (e.getTitulo().equalsIgnoreCase(entrada.getTitulo()) &&
-                e.getAutor().equalsIgnoreCase(entrada.getAutor())) {
-                throw new EntradaJaExisteException("Entrada já existente: " + entrada.getTitulo());
-            }
-        }
-        entradas.add(entrada);
+    if (!entradas.add(entrada)) {
+        throw new EntradaJaExisteException("Entrada já existe na biblioteca.");
+    }
     }
 
     public void removerEntrada(String titulo) throws EntradaNaoEncontradaException {
-        Entrada encontrada = null;
-        for (Entrada e : entradas) {
-            if (e.getTitulo().equalsIgnoreCase(titulo)) {
-                encontrada = e;
-                break;
-            }
-        }
-        if (encontrada == null) {
-            throw new EntradaNaoEncontradaException("Entrada não encontrada: " + titulo);
-        }
-        entradas.remove(encontrada);
+    Entrada entradaParaRemover = entradas.stream()
+        .filter(e -> e.getTitulo().equalsIgnoreCase(titulo))
+        .findFirst()
+        .orElseThrow(() -> new EntradaNaoEncontradaException("Entrada não encontrada."));
+    
+    entradas.remove(entradaParaRemover);
     }
 
     public List<Entrada> listarEntradas() {
-        return new ArrayList<>(entradas);
+    return new ArrayList<>(entradas);
     }
 
     public Entrada buscarPorTitulo(String titulo) throws EntradaNaoEncontradaException {
