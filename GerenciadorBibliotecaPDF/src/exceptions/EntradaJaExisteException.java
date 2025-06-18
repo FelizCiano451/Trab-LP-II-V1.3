@@ -1,1 +1,7 @@
-// Conteúdo de exemplo para EntradaJaExisteException.java
+package exceptions;
+
+public class EntradaJaExisteException extends Exception {
+    public EntradaJaExisteException(String mensagem) {
+        super(mensagem);
+    }
+}
