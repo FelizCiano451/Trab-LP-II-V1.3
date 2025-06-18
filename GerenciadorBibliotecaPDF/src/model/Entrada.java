@@ -1,6 +1,8 @@
 package model;
 
-public interface Entrada {
+import java.io.Serializable;
+
+public interface Entrada extends Serializable {
     String getTitulo();
     String getAutor();
     int getAno();
