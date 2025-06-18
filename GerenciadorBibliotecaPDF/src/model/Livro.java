@@ -1,62 +1,32 @@
 package model;
 
-import java.util.List;
-import java.util.Arrays;
-
-public class Livro extends EntradaPDF {
-    private String subtitulo;
-    private String areaConhecimento;
-    private int anoPublicacao;
+public class Livro implements Entrada {
+    private String titulo;
+    private String autor;
+    private int ano;
     private String editora;
-    private int numPaginas;
 
-    public Livro(String titulo, List<String> autores, String pathPDF,
-                 String subtitulo, String areaConhecimento, int anoPublicacao,
-                 String editora, int numPaginas) {
-        super(titulo, autores, pathPDF);
-        this.subtitulo = subtitulo;
-        this.areaConhecimento = areaConhecimento;
-        this.anoPublicacao = anoPublicacao;
+    public Livro(String titulo, String autor, int ano, String editora) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.ano = ano;
         this.editora = editora;
-        this.numPaginas = numPaginas;
-    }
-
-    public static Livro fromLinha(String linha) {
-        String[] partes = linha.split(";");
-        String titulo = partes[1];
-        List<String> autores = Arrays.asList(partes[2].split(","));
-        String pathPDF = partes[3];
-        String subtitulo = partes[4];
-        String area = partes[5];
-        int ano = Integer.parseInt(partes[6]);
-        String editora = partes[7];
-        int paginas = Integer.parseInt(partes[8]);
-        return new Livro(titulo, autores, pathPDF, subtitulo, area, ano, editora, paginas);
     }
 
     @Override
-    public String toLinha() {
-        return String.join(";",
-            "LIVRO",
-            titulo,
-            String.join(",", autores),
-            pathPDF,
-            subtitulo,
-            areaConhecimento,
-            String.valueOf(anoPublicacao),
-            editora != null ? editora : "",
-            String.valueOf(numPaginas)
-        );
-    }
+    public String getTitulo() { return titulo; }
 
     @Override
-    public String getTipo() {
-        return "Livro";
-    }
-}
+    public String getAutor() { return autor; }
 
     @Override
-    public void salvarNaBiblioteca(String pathBiblioteca) {
-        System.out.println("Salvando livro em " + pathBiblioteca);
+    public int getAno() { return ano; }
+
+    public String getEditora() { return editora; }
+
+    @Override
+    public String gerarBibTeX() {
+        return String.format("@book{%s,\n  author = {%s},\n  title = {%s},\n  year = {%d},\n  publisher = {%s}\n}",
+            titulo.replaceAll("\\s", ""), autor, titulo, ano, editora);
     }
 }
