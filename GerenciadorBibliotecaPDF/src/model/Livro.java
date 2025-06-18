@@ -1,6 +1,8 @@
 package model;
 
 public class Livro implements Entrada {
+    private static final long serialVersionUID = 1L;
+
     private String titulo;
     private String autor;
     private int ano;
