@@ -9,11 +9,24 @@ public class Livro implements Entrada {
     private String editora;
 
     public Livro(String titulo, String autor, int ano, String editora) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.ano = ano;
-        this.editora = editora;
+    if (titulo == null || titulo.isBlank()) {
+        throw new IllegalArgumentException("O título não pode ser vazio.");
     }
+    if (autor == null || autor.isBlank()) {
+        throw new IllegalArgumentException("O autor não pode ser vazio.");
+    }
+    if (ano <= 0) {
+        throw new IllegalArgumentException("O ano deve ser positivo.");
+    }
+    if (editora == null || editora.isBlank()) {
+        throw new IllegalArgumentException("A editora não pode ser vazia.");
+    }
+
+    this.titulo = titulo.trim();
+    this.autor = autor.trim();
+    this.ano = ano;
+    this.editora = editora.trim();
+}
 
     @Override
     public String getTitulo() { return titulo; }
