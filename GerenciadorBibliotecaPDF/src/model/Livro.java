@@ -31,4 +31,17 @@ public class Livro implements Entrada {
         return String.format("@book{%s,\n  author = {%s},\n  title = {%s},\n  year = {%d},\n  publisher = {%s}\n}",
             titulo.replaceAll("\\s", ""), autor, titulo, ano, editora);
     }
+
+    @Override
+    public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Livro)) return false;
+    Livro livro = (Livro) o;
+    return titulo.equalsIgnoreCase(livro.titulo) &&
+           autor.equalsIgnoreCase(livro.autor);
+}
+    @Override
+    public int hashCode() {
+    return (titulo.toLowerCase() + autor.toLowerCase()).hashCode();
+}
 }
