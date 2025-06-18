@@ -19,8 +19,8 @@ import java.util.List;
 public class GerenciadorBibliotecaPDF {
 
     public static void main(String[] args) {
-        GerenciadorBiblioteca biblioteca = new GerenciadorBiblioteca();
-        GerenciadorColecoes colecoes = new GerenciadorColecoes();
+        IGerenciadorBiblioteca biblioteca = new GerenciadorBiblioteca();
+        IGerenciadorColecoes colecoes = new GerenciadorColecoes();
 
         try {
             // Criar entradas
