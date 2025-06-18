@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GerenciadorColecoes {
+public class GerenciadorColecoes implements IGerenciadorColecoes {
     private Map<String, Colecao> colecoes;
 
     public GerenciadorColecoes() {
