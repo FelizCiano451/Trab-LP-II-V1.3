@@ -1,6 +1,8 @@
 package model;
 
 public class NotaDeAula implements Entrada {
+    private static final long serialVersionUID = 1L;
+
     private String titulo;
     private String autor;
     private int ano;
@@ -13,7 +15,7 @@ public class NotaDeAula implements Entrada {
         this.curso = curso;
     }
 
-    @Override
+     @Override
     public String getTitulo() { return titulo; }
 
     @Override
