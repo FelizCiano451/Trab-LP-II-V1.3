@@ -31,4 +31,18 @@ public class NotaDeAula implements Entrada {
         return String.format("@misc{%s,\n  author = {%s},\n  title = {%s},\n  year = {%d},\n  note = {Nota de aula do curso: %s}\n}",
             titulo.replaceAll("\\s", ""), autor, titulo, ano, curso);
     }
+
+    @Override
+    public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof NotaDeAula)) return false;
+    NotaDeAula nota = (NotaDeAula) o;
+    return titulo.equalsIgnoreCase(nota.titulo) &&
+           autor.equalsIgnoreCase(nota.autor);
+}
+
+    @Override
+    public int hashCode() {
+    return (titulo.toLowerCase() + autor.toLowerCase()).hashCode();
+}
 }
