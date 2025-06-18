@@ -12,7 +12,7 @@ import model.Slide;
 import util.CompactadorZip;
 import util.ExportadorBibTeX;
 import util.PersistenciaEmArquivo;
-
+import util.Persistencia;
 import java.io.IOException;
 import java.util.List;
 
@@ -21,6 +21,8 @@ public class GerenciadorBibliotecaPDF {
     public static void main(String[] args) {
         IGerenciadorBiblioteca biblioteca = new GerenciadorBiblioteca();
         IGerenciadorColecoes colecoes = new GerenciadorColecoes();
+        Persistencia<IGerenciadorBiblioteca> persistencia = new PersistenciaEmArquivo<>();
+
 
         try {
             // Criar entradas
@@ -50,9 +52,10 @@ public class GerenciadorBibliotecaPDF {
             System.out.println("Arquivo compactado para " + caminhoZip);
 
             // Persistir dados da biblioteca
-            PersistenciaEmArquivo.salvar(biblioteca.listarEntradas(), "biblioteca.dat");
-            System.out.println("Biblioteca salva com sucesso.");
-
+            persistencia.salvar(biblioteca, "biblioteca.dat");
+            
+            IGerenciadorBiblioteca bibliotecaCarregada = persistencia.carregar("biblioteca.dat");
+            
             // Carregar dados da biblioteca
             List<Entrada> entradasCarregadas = PersistenciaEmArquivo.carregar("biblioteca.dat");
             System.out.println("Entradas carregadas da biblioteca:");
