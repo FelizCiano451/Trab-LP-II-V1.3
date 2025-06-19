@@ -1,6 +1,7 @@
 package model;
 
 import util.Mensagens;
+import static util.ValidadorEntrada.*;
 
 public class Livro implements Entrada {
     private static final long serialVersionUID = 1L;
@@ -10,24 +11,16 @@ public class Livro implements Entrada {
     private int ano;
     private String editora;
 
-    public Livro(String titulo, String autor, int ano, String editora) {
-    if (titulo == null || titulo.isBlank()) {
-    throw new IllegalArgumentException(Mensagens.get("erro.titulo.vazio"));
-    }
-    if (autor == null || autor.isBlank()) {
-        throw new IllegalArgumentException("erro.autor.vazio");
-    }
-    if (ano <= 0) {
-        throw new IllegalArgumentException("erro.ano.invalido");
-    }
-    if (editora == null || editora.isBlank()) {
-        throw new IllegalArgumentException("erro.editora.vazia");
-    }
+public Livro(String titulo, String autor, int ano, String editora) {
+    validarTitulo(titulo);
+    validarAutor(autor);
+    validarAno(ano);
+    validarEditora(editora);
 
-    this.titulo = titulo.trim();
-    this.autor = autor.trim();
+    this.titulo = titulo;
+    this.autor = autor;
     this.ano = ano;
-    this.editora = editora.trim();
+    this.editora = editora;
 }
 
     @Override
