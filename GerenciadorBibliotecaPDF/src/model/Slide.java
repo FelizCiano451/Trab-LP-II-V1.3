@@ -1,4 +1,6 @@
-ppackage model;
+package model;
+
+import util.Mensagens;
 
 public class Slide implements Entrada {
     private static final long serialVersionUID = 1L;
