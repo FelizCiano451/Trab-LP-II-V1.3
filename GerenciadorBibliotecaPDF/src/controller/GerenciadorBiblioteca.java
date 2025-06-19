@@ -6,6 +6,7 @@ import exceptions.EntradaNaoEncontradaException;
 
 import java.util.ArrayList;
 import java.util.List;
+import util.Mensagens;
 
 public class GerenciadorBiblioteca implements IGerenciadorBiblioteca {
     private Set<Entrada> entradas;
