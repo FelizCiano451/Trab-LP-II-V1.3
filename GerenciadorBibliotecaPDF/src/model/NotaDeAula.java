@@ -1,6 +1,7 @@
 package model;
 
 import util.Mensagens;
+import static util.ValidadorEntrada.*;
 
 public class NotaDeAula implements Entrada {
     private static final long serialVersionUID = 1L;
@@ -10,26 +11,18 @@ public class NotaDeAula implements Entrada {
     private int ano;
     private String curso;
 
-    public NotaDeAula(String titulo, String autor, int ano, String disciplina) {
-    if (titulo == null || titulo.isBlank()) {
-        throw new IllegalArgumentException("erro.titulo.vazio");
-    }
-    if (autor == null || autor.isBlank()) {
-        throw new IllegalArgumentException("erro.autor.vazio");
-    }
-    if (ano <= 0) {
-        throw new IllegalArgumentException("erro.ano.invalido");
-    }
-    if (disciplina == null || disciplina.isBlank()) {
-        throw new IllegalArgumentException("erro.disciplina.vazia");
-    }
+public NotaDeAula(String titulo, String autor, int ano, String disciplina) {
+    validarTitulo(titulo);
+    validarAutor(autor);
+    validarAno(ano);
+    validarDisciplina(disciplina);
 
     this.titulo = titulo.trim();
     this.autor = autor.trim();
     this.ano = ano;
     this.disciplina = disciplina.trim();
 }
-    
+
      @Override
     public String getTitulo() { return titulo; }
 
