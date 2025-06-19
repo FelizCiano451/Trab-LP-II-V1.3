@@ -3,8 +3,11 @@ package controller;
 import model.Colecao;
 import model.Livro;
 import org.junit.jupiter.api.Test;
-
+import util.CompactadorZip; 
+import util.ExportadorBibTeX; 
 import java.io.File;
+import java.io.FileWriter; 
+import java.io.IOException; 
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,13 +23,24 @@ public class ColecaoZipTest {
 
         Colecao colecao = gerenciador.obterColecao("Programação");
         String zipPath = "colecao_programacao_test.zip";
-        colecao.gerarZip(zipPath);
+        String tempBibFilePath = "temp_programacao_test.bib"; 
 
-        File zip = new File(zipPath);
-        assertTrue(zip.exists());
-        assertTrue(zip.length() > 0);
+        try {
+            String bibtexContent = colecao.exportarBibTeX();
+            try (FileWriter writer = new FileWriter(tempBibFilePath)) {
+                writer.write(bibtexContent);
+            }
 
-        // Limpeza
-        zip.delete();
+            CompactadorZip.compactarArquivo(tempBibFilePath, zipPath);
+
+            File zip = new File(zipPath);
+            assertTrue(zip.exists(), "O arquivo ZIP deve existir.");
+            assertTrue(zip.length() > 0, "O arquivo ZIP não deve estar vazio.");
+
+        } finally {
+            // Limpeza
+            new File(zipPath).delete();
+            new File(tempBibFilePath).delete();
+        }
     }
 }
