@@ -28,6 +28,11 @@ public class BibliotecaCLI {
                     case "4" -> exportarBibTeX();
                     case "5" -> salvar();
                     case "6" -> carregar();
+                    case "7" -> adicionarNotaDeAula();
+                    case "8" -> adicionarSlide();
+                    case "9" -> criarColecao();
+                    case "10" -> adicionarEntradaAColecao();
+                    case "11" -> gerarZipColecao();
                     case "0" -> System.out.println("Encerrando...");
                     default -> System.out.println("Comando inválido.");
                 }
@@ -46,6 +51,12 @@ public class BibliotecaCLI {
         System.out.println("4 - Exportar para BibTeX");
         System.out.println("5 - Salvar Biblioteca");
         System.out.println("6 - Carregar Biblioteca");
+        System.out.println("7 - Adicionar Nota de Aula");
+        System.out.println("8 - Adicionar Slide");
+        System.out.println("9 - Criar Coleção");
+        System.out.println("10 - Adicionar Entrada a Coleção");
+        System.out.println("11 - Gerar ZIP de Coleção");
+
         System.out.println("0 - Sair");
         System.out.print(">>> ");
     }
@@ -65,6 +76,69 @@ public class BibliotecaCLI {
         System.out.println("Livro adicionado com sucesso.");
     }
 
+     private static void adicionarNotaDeAula() throws Exception {
+        System.out.print("Título: ");
+        String titulo = scanner.nextLine();
+        System.out.print("Autor: ");
+        String autor = scanner.nextLine();
+        System.out.print("Ano: ");
+        int ano = Integer.parseInt(scanner.nextLine());
+        System.out.print("Disciplina: ");
+        String disciplina = scanner.nextLine();
+
+         NotaDeAula nota = new NotaDeAula(titulo, autor, ano, disciplina);
+         biblioteca.adicionarEntrada(nota);
+         System.out.println("Nota de Aula adicionada com sucesso.");
+}
+
+    private static void adicionarSlide() throws Exception {
+        System.out.print("Título: ");
+        String titulo = scanner.nextLine();
+        System.out.print("Autor: ");
+        String autor = scanner.nextLine();
+        System.out.print("Ano: ");
+        int ano = Integer.parseInt(scanner.nextLine());
+        System.out.print("Número de slides: ");
+        int numSlides = Integer.parseInt(scanner.nextLine());
+
+        Slide slide = new Slide(titulo, autor, ano, numSlides);
+        biblioteca.adicionarEntrada(slide);
+        System.out.println("Slide adicionado com sucesso.");
+}
+
+    private static void criarColecao() throws Exception {
+        System.out.print("Nome da coleção: ");
+        String nome = scanner.nextLine();
+        colecoes.criarColecao(nome);
+        System.out.println("Coleção criada.");
+}
+
+    private static void adicionarEntradaAColecao() throws Exception {
+        System.out.print("Nome da coleção: ");
+        String nomeColecao = scanner.nextLine();
+        System.out.print("Título da entrada a adicionar: ");
+        String titulo = scanner.nextLine();
+
+    Entrada entrada = biblioteca.listarEntradas().stream()
+        .filter(e -> e.getTitulo().equalsIgnoreCase(titulo))
+        .findFirst()
+        .orElseThrow(() -> new EntradaNaoEncontradaException(Mensagens.get("erro.entrada.nao.encontrada")));
+
+    colecoes.adicionarEntradaNaColecao(nomeColecao, entrada);
+    System.out.println("Entrada adicionada à coleção.");
+}
+
+    private static void gerarZipColecao() throws Exception {
+        System.out.print("Nome da coleção: ");
+        String nome = scanner.nextLine();
+        System.out.print("Caminho do arquivo ZIP: ");
+        String caminho = scanner.nextLine();
+
+    Colecao colecao = colecoes.obterColecao(nome);
+    colecao.gerarZip(caminho);
+    System.out.println("ZIP gerado com sucesso.");
+}
+    
     private static void listarEntradas() {
         var entradas = biblioteca.listarEntradas();
         if (entradas.isEmpty()) {
