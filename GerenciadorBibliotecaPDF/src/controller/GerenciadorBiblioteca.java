@@ -27,6 +27,11 @@ public void removerEntrada(String titulo) throws EntradaNaoEncontradaException {
         throw new IllegalArgumentException(Mensagens.get("erro.titulo.vazio"));
     }
 
+    public void substituirEntradas(List<Entrada> novasEntradas) {
+    entradas.clear();
+    entradas.addAll(novasEntradas);
+}
+    
     Entrada entradaParaRemover = entradas.stream()
         .filter(e -> e.getTitulo().equalsIgnoreCase(titulo))
         .findFirst()
