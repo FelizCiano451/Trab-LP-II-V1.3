@@ -83,10 +83,10 @@ public class BibliotecaCLI {
         String autor = scanner.nextLine();
         System.out.print("Ano: ");
         int ano = Integer.parseInt(scanner.nextLine());
-        System.out.print("Disciplina: ");
-        String disciplina = scanner.nextLine();
+        System.out.print("Curso: ");
+        String curso = scanner.nextLine();
 
-         NotaDeAula nota = new NotaDeAula(titulo, autor, ano, disciplina);
+         NotaDeAula nota = new NotaDeAula(titulo, autor, ano, curso);
          biblioteca.adicionarEntrada(nota);
          System.out.println("Nota de Aula adicionada com sucesso.");
 }
@@ -98,10 +98,10 @@ public class BibliotecaCLI {
         String autor = scanner.nextLine();
         System.out.print("Ano: ");
         int ano = Integer.parseInt(scanner.nextLine());
-        System.out.print("Número de slides: ");
-        int numSlides = Integer.parseInt(scanner.nextLine());
+        System.out.print("Evento: ");
+        String evento = scanner.nextLine();
 
-        Slide slide = new Slide(titulo, autor, ano, numSlides);
+        Slide slide = new Slide(titulo, autor, ano, evento); 
         biblioteca.adicionarEntrada(slide);
         System.out.println("Slide adicionado com sucesso.");
 }
@@ -129,14 +129,24 @@ public class BibliotecaCLI {
 }
 
     private static void gerarZipColecao() throws Exception {
-        System.out.print("Nome da coleção: ");
-        String nome = scanner.nextLine();
-        System.out.print("Caminho do arquivo ZIP: ");
-        String caminho = scanner.nextLine();
+    System.out.print("Nome da coleção: ");
+    String nome = scanner.nextLine();
+    System.out.print("Caminho do arquivo ZIP: ");
+    String caminhoZip = scanner.nextLine();
 
     Colecao colecao = colecoes.obterColecao(nome);
-    colecao.gerarZip(caminho);
-    System.out.println("ZIP gerado com sucesso.");
+
+    String bibtexContent = colecao.exportarBibTeX();
+    String tempBibFilePath = "temp_" + nome.replaceAll("\\s+", "_") + ".bib";
+    try (FileWriter writer = new FileWriter(tempBibFilePath)) {
+        writer.write(bibtexContent);
+    }
+
+    CompactadorZip.compactarArquivo(tempBibFilePath, caminhoZip);
+
+    new File(tempBibFilePath).delete();
+
+    System.out.println("ZIP da coleção gerado com sucesso em: " + caminhoZip);
 }
     
     private static void listarEntradas() {
@@ -158,7 +168,7 @@ public class BibliotecaCLI {
     private static void exportarBibTeX() throws Exception {
         System.out.print("Caminho do arquivo BibTeX de saída: ");
         String caminho = scanner.nextLine();
-        ExportadorBibTeX.exportar(biblioteca.listarEntradas(), caminho);
+        ExportadorBibTeX.exportarParaArquivo(biblioteca.listarEntradas(), caminho);
         System.out.println("Exportação concluída.");
     }
 
