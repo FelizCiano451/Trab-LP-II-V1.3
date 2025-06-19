@@ -11,19 +11,18 @@ public class Slide implements Entrada {
     private int ano;
     private String evento;
 
-public Slide(String titulo, String autor, int ano, int numeroDeSlides) {
-    validarTitulo(titulo);
-    validarAutor(autor);
-    validarAno(ano);
-    validarNumeroSlides(numeroDeSlides);
+    public Slide(String titulo, String autor, int ano, String evento) {
+        validarTitulo(titulo);
+        validarAutor(autor);
+        validarAno(ano);
 
-    this.titulo = titulo.trim();
-    this.autor = autor.trim();
-    this.ano = ano;
-    this.numeroDeSlides = numeroDeSlides;
-}
+        this.titulo = titulo.trim();
+        this.autor = autor.trim();
+        this.ano = ano;
+        this.evento = evento.trim();
+    }
 
-  @Override
+    @Override
     public String getTitulo() { return titulo; }
 
     @Override
@@ -42,14 +41,18 @@ public Slide(String titulo, String autor, int ano, int numeroDeSlides) {
 
     @Override
     public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Slide)) return false;
-    Slide slide = (Slide) o;
-    return titulo.equalsIgnoreCase(slide.titulo) &&
-           autor.equalsIgnoreCase(slide.autor);
-}
+        if (this == o) return true;
+        if (!(o instanceof Slide)) return false;
+        Slide slide = (Slide) o;
+        return titulo.equalsIgnoreCase(slide.titulo) &&
+               autor.equalsIgnoreCase(slide.autor);
+    }
 
     @Override
+    public int hashCode() {
+        return (titulo.toLowerCase() + autor.toLowerCase()).hashCode();
+    }
+}
     public int hashCode() {
     return (titulo.toLowerCase() + autor.toLowerCase()).hashCode();
 }
