@@ -16,19 +16,24 @@ public GerenciadorBiblioteca() {
 
     public void adicionarEntrada(Entrada entrada) throws EntradaJaExisteException {
     if (!entradas.add(entrada)) {
-        throw new EntradaJaExisteException("Entrada já existe na biblioteca.");
+        throw new EntradaJaExisteException(Mensagens.get("erro.entrada.duplicada"));
     }
     }
 
-    public void removerEntrada(String titulo) throws EntradaNaoEncontradaException {
+    @Override
+public void removerEntrada(String titulo) throws EntradaNaoEncontradaException {
+    if (titulo == null || titulo.isBlank()) {
+        throw new IllegalArgumentException(Mensagens.get("erro.titulo.vazio"));
+    }
+
     Entrada entradaParaRemover = entradas.stream()
         .filter(e -> e.getTitulo().equalsIgnoreCase(titulo))
         .findFirst()
-        .orElseThrow(() -> new EntradaNaoEncontradaException("Entrada não encontrada."));
-    
-    entradas.remove(entradaParaRemover);
-    }
+        .orElseThrow(() -> new EntradaNaoEncontradaException(Mensagens.get("erro.entrada.nao.encontrada")));
 
+    entradas.remove(entradaParaRemover);
+}
+    
     public List<Entrada> listarEntradas() {
     return new ArrayList<>(entradas);
     }
