@@ -26,9 +26,9 @@ public class ValidadorEntrada {
         }
     }
 
-    public static void validarDisciplina(String disciplina) {
-        if (disciplina == null || disciplina.isBlank()) {
-            throw new IllegalArgumentException(Mensagens.get("erro.disciplina.vazia"));
+    public static void validarCurso(String curso) {
+        if (curso == null || curso.isBlank()) {
+            throw new IllegalArgumentException(Mensagens.get("erro.curso.vazio"));
         }
     }
 
