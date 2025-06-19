@@ -11,16 +11,16 @@ public class NotaDeAula implements Entrada {
     private int ano;
     private String curso;
 
-public NotaDeAula(String titulo, String autor, int ano, String disciplina) {
+public NotaDeAula(String titulo, String autor, int ano, String curso) {
     validarTitulo(titulo);
     validarAutor(autor);
     validarAno(ano);
-    validarDisciplina(disciplina);
+    validarDisciplina(curso);
 
     this.titulo = titulo.trim();
     this.autor = autor.trim();
     this.ano = ano;
-    this.disciplina = disciplina.trim();
+    this.curso = curso.trim();
 }
 
      @Override
