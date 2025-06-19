@@ -1,5 +1,7 @@
 package model;
 
+import util.Mensagens;
+
 public class Livro implements Entrada {
     private static final long serialVersionUID = 1L;
 
