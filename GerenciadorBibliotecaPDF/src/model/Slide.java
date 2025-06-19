@@ -1,6 +1,7 @@
 package model;
 
 import util.Mensagens;
+import static util.ValidadorEntrada.*;
 
 public class Slide implements Entrada {
     private static final long serialVersionUID = 1L;
@@ -10,19 +11,11 @@ public class Slide implements Entrada {
     private int ano;
     private String evento;
 
-   public Slide(String titulo, String autor, int ano, int numeroDeSlides) {
-    if (titulo == null || titulo.isBlank()) {
-        throw new IllegalArgumentException("erro.titulo.vazio");
-    }
-    if (autor == null || autor.isBlank()) {
-        throw new IllegalArgumentException("erro.autor.vazio");
-    }
-    if (ano <= 0) {
-        throw new IllegalArgumentException("erro.ano.invalido");
-    }
-    if (numeroDeSlides <= 0) {
-        throw new IllegalArgumentException("erro.slides.invalidos");
-    }
+public Slide(String titulo, String autor, int ano, int numeroDeSlides) {
+    validarTitulo(titulo);
+    validarAutor(autor);
+    validarAno(ano);
+    validarNumeroSlides(numeroDeSlides);
 
     this.titulo = titulo.trim();
     this.autor = autor.trim();
